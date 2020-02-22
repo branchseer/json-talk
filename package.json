@@ -2,6 +2,7 @@
   "name": "json-talk",
   "version": "0.0.1",
   "description": "Making procedure calls over JSON messages",
+  "repository": "github:patr0nus/json-talk",
   "files": [ "dist" ],
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
