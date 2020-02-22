@@ -20,11 +20,7 @@ steps:
 - script: npm ci
 - script: npm test
 
-- task: npmAuthenticate@0
+- task: Npm@1
   inputs:
-    workingFile: .npmrc
-    customEndpoint: npmjs
-  condition: and(succeeded(), eq(variables['JSONTALK_NPM_PUBLISH'], '1'))
-
-- script: npm publish
-  condition: and(succeeded(), eq(variables['JSONTALK_NPM_PUBLISH'], '1'))
+    command: 'publish'
+    publishEndpoint: npmjs
