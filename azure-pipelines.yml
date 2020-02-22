@@ -19,5 +19,7 @@ steps:
 
 - script: npm ci
 - script: npm test
-- script: npm publish
+- script: |
+    echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > $HOME/.npmrc
+    npm publish
   condition: and(succeeded(), eq(variables['JSONTALK_NPM_PUBLISH'], '1'))
