@@ -1,13 +1,8 @@
-type JSONElement = boolean | number | string | null;
-type JSONObject =  { [key: string]: JSONValue };
-type JSONArray = JSONValue[];
-type JSONValue = JSONElement | JSONObject | JSONArray;
-
 interface IRequestMessage {
     id?: number;
     service: string;
     method: string
-    params: JSONArray;
+    params: any[];
 }
 
 interface IResponseError {
@@ -15,17 +10,16 @@ interface IResponseError {
     stack?: string;
 }
 
-
 interface IResponseMessage {
     id: number;
-    result?: JSONValue;
+    result?: any;
     error?: IResponseError;
 }
 
 type IMessage = IRequestMessage | IResponseMessage
 
 export interface IService {
-    [method: string]: (...args: any[]) => JSONValue | PromiseLike<JSONValue | void> | void
+    [method: string]: (...args: any[]) => any | void | PromiseLike<any | void>
 }
 
 type PromiseOf<T> = T extends PromiseLike<infer R> ? Promise<R> : Promise<T>
@@ -40,7 +34,7 @@ interface IServiceClient<Service extends IService> {
 
 type MessageProducedFunction = (msg: IMessage) => void;
 type RegisterRequestFunction =  (
-    resolve: (response?: JSONValue) => void,
+    resolve: (response?: any) => void,
     reject: (error: IResponseError) => void
 ) => number;
 
@@ -83,7 +77,7 @@ export interface IServices {
 
 export default class JSONTalk<Services extends IServices> {
     private readonly _messageProduced: MessageProducedFunction;
-    private readonly _callRequestsById = new Map<number, {resolve: (response?: JSONValue) => void, reject: (error: IResponseError) => void}>();
+    private readonly _callRequestsById = new Map<number, {resolve: (response?: any) => void, reject: (error: IResponseError) => void}>();
     private _lastId = 0;
     private readonly _publishedServices: IServices;
 
