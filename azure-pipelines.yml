@@ -24,3 +24,4 @@ steps:
   inputs:
     command: 'publish'
     publishEndpoint: npmjs
+  condition: and(succeeded(), eq(variables['JT_RELEASE'], '1'))
