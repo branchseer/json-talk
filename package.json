@@ -1,6 +1,6 @@
 {
   "name": "json-talk",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Making procedure calls over JSON messages",
   "repository": "github:patr0nus/json-talk",
   "files": [ "dist" ],

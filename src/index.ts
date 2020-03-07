@@ -24,7 +24,7 @@ export interface IService {
 
 type PromiseOf<T> = T extends PromiseLike<infer R> ? Promise<R> : Promise<T>
 
-interface IServiceClient<Service extends IService> {
+export interface IServiceClient<Service extends IService> {
     send<MethodName extends (keyof Service) & string>(method: MethodName, ...args: Parameters<Service[MethodName]>): void;
     call<
         MethodName extends (keyof Service) & string,
@@ -82,7 +82,7 @@ export default class JSONTalk<Services extends IServices> {
     private readonly _publishedServices: IServices;
 
     // connectService<ServiceName extends (keyof Services & string)>(serviceName: ServiceName): ServiceClient<Services[ServiceName]> {
-    connectService<ServiceName extends (keyof Services & string)>(serviceName: ServiceName): ServiceClient<Services[ServiceName]> {
+    connectService<ServiceName extends (keyof Services & string)>(serviceName: ServiceName): IServiceClient<Services[ServiceName]> {
             return new ServiceClient<Services[ServiceName]>(serviceName, this._messageProduced, (resolve, reject) => {
             const id = this._lastId;
             this._lastId++;
